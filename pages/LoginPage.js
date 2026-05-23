@@ -1,4 +1,4 @@
-const CommonUtils = require('../utils/temp');
+const CommonUtils = require('../utils/CommonUtils');
 
 class LoginPage {
 

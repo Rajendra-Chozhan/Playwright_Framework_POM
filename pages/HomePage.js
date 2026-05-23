@@ -1,5 +1,5 @@
 const env = require('../configurations/env');
-const CommonUtils = require('../utils/temp');
+const CommonUtils = require('../utils/CommonUtils');
 
 class HomePage {
 
