@@ -1,37 +1,71 @@
 const env = require('../configurations/env');
+const CommonUtils = require('../utils/CommonUtils');
 
 class HomePage {
+
     constructor(page) {
+
         this.page = page;
-        this.searchBox = '//input[@id="searchBox"][1]';
-        this.menu = '//nav';
-        this.profile = "//app-fab-login-slot//*[contains(@class,'header-icon-sprite')]";
-        this.logout = "//button[normalize-space()='Log Out']";
+
+        this.searchBox = page.locator(
+            '//input[@id="searchBox"][1]'
+        );
+
+        this.menu = page.locator(
+            '//nav'
+        );
+
+        this.profile = page.locator(
+            "//app-fab-login-slot//*[contains(@class,'header-icon-sprite')]"
+        );
+
+        this.logout = page.locator(
+            "//button[normalize-space()='Log Out']"
+        );
     }
 
     async navigate() {
-        await this.page.goto(env.baseURL);
+
+        await this.page.goto(
+            env.baseURL
+        );
     }
 
     async searchProduct(productName) {
-        await this.page.fill(this.searchBox, productName);
-        await this.page.keyboard.press('Enter');
-         await this.page.waitForTimeout(5000);
+
+        await CommonUtils.fill(
+            this.searchBox,
+            productName
+        );
+
+        await this.page.keyboard.press(
+            'Enter'
+        );
+
+        await CommonUtils.wait(
+            5,
+            this.page
+        );
     }
 
     async isMenuVisible() {
-        return await this.page.isVisible(this.menu);
+
+        return await this.menu.isVisible();
     }
 
-     async moveToprofile() {
-               return await this.page.locator(this.profile).hover();
+    async moveToProfile() {
 
+        await CommonUtils.hover(
+            this.profile
+        );
     }
 
-     async clickLogOut() {
-        return await this.page.locator(this.logout).click();
+    async clickLogOut() {
+
+        await CommonUtils.click(
+            this.logout
+        );
     }
 }
-
 
 module.exports = HomePage;

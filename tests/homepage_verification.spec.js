@@ -1,19 +1,11 @@
-const { test, expect } = require('@playwright/test');
-const LoginPage = require('../pages/Loginpage'); // ✅ FIXED
+const { test, expect } = require('../fixtures/baseTest');
 const env = require('../configurations/env');
-const HomePage = require('../pages/HomePage'); 
 
+test('User should search product successfully', async ({ loginPage, homePage }) => {
 
-
-test('User should login successfully', async ({ page }) => {
-
-    const loginPage = new LoginPage(page);    
- const homePage = new HomePage(page);
- 
     await loginPage.navigate(env.baseURL);
     await loginPage.openLoginPopup();
     await loginPage.login(env.email, env.password);
-    await homePage.isMenuVisible();
+    await expect(homePage.menu).toBeVisible();
     await homePage.searchProduct('Laptop');
-
 });

@@ -1,58 +1,82 @@
+const CommonUtils = require('../utils/CommonUtils');
+
 class LoginPage {
 
     constructor(page) {
 
         this.page = page;
 
-        // Locators
- this.accountIcon = page.locator("app-fab-login-slot button");
+        this.accountIcon = page.locator(
+            "app-fab-login-slot button"
+        );
 
-this.loginButton = page.locator(
-    "button.login_password"
-);
+        this.loginButton = page.locator(
+            "button.login_password"
+        );
 
-this.emailInput = page.locator(
-    "input[type='email']"
-);
+        this.emailInput = page.locator(
+            "input[type='email']"
+        );
 
-this.passwordInput = page.locator(
-    "input[type='password']"
-);
+        this.passwordInput = page.locator(
+            "input[type='password']"
+        );
 
-this.submitBtn = page.locator("#send-otp");
+        this.submitBtn = page.locator(
+            "#send-otp"
+        );
     }
 
     async navigate(baseURL) {
-        await this.page.goto(baseURL);
+
+        await this.page.goto(
+            baseURL
+        );
     }
 
     async openLoginPopup() {
 
-        await this.accountIcon.click();
+        await CommonUtils.click(
+            this.accountIcon
+        );
 
-        await this.loginButton.click();
+        await CommonUtils.click(
+            this.loginButton
+        );
     }
 
     async enterEmail(email) {
 
-        await this.emailInput.fill(email);
+        await CommonUtils.fill(
+            this.emailInput,
+            email
+        );
     }
 
     async enterPassword(password) {
 
-        await this.passwordInput.fill(password);
+        await CommonUtils.fill(
+            this.passwordInput,
+            password
+        );
     }
 
     async clickLogin() {
 
-        await this.submitBtn.click();
+        await CommonUtils.click(
+            this.submitBtn
+        );
     }
 
     async login(email, password) {
 
-        await this.enterEmail(email);
+        await this.enterEmail(
+            email
+        );
 
-        await this.enterPassword(password);
+        await this.enterPassword(
+            password
+        );
 
         await this.clickLogin();
     }
