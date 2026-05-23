@@ -1,13 +1,25 @@
 class LoginPage {
+
     constructor(page) {
+
         this.page = page;
 
-        // 🔍 Locators (update if UI differs)
-        this.accountIcon = '//*[contains(@class,"account")]';
-        this.loginButton = '//button[contains(text(),"Login")]';
-        this.emailInput = '//input[@type="email"]';
-        this.passwordInput = '//input[@type="password"]';
-        this.submitBtn = '//button[normalize-space()="Login"]';
+        // Locators
+ this.accountIcon = page.locator("app-fab-login-slot button");
+
+this.loginButton = page.locator(
+    "button.login_password"
+);
+
+this.emailInput = page.locator(
+    "input[type='email']"
+);
+
+this.passwordInput = page.locator(
+    "input[type='password']"
+);
+
+this.submitBtn = page.locator("#send-otp");
     }
 
     async navigate(baseURL) {
@@ -15,25 +27,33 @@ class LoginPage {
     }
 
     async openLoginPopup() {
-        await this.page.click(this.accountIcon);
-        await this.page.click(this.loginButton);
+
+        await this.accountIcon.click();
+
+        await this.loginButton.click();
     }
 
     async enterEmail(email) {
-        await this.page.fill(this.emailInput, email);
+
+        await this.emailInput.fill(email);
     }
 
     async enterPassword(password) {
-        await this.page.fill(this.passwordInput, password);
+
+        await this.passwordInput.fill(password);
     }
 
     async clickLogin() {
-        await this.page.click(this.submitBtn);
+
+        await this.submitBtn.click();
     }
 
     async login(email, password) {
+
         await this.enterEmail(email);
+
         await this.enterPassword(password);
+
         await this.clickLogin();
     }
 }
